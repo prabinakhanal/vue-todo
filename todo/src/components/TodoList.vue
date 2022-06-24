@@ -6,7 +6,7 @@
         <div class="todo-items">
             <input type="checkbox" v-model="todo.completed">
             <div v-if="!todo.editing" @dblclick="editTodo(todo)" class="todo-item-label" :class="{completed: todo.completed}">{{todo.title}}</div>
-            <input v-else class="todo-edit" type="text" v-model="todo.title" @blur="doneEdit(todo)" @keyup.enter="doneEdit(todo)" v-focus @keyup.esc="cancelEdit(todo)">
+            <input v-else class="todo-edit" type="text" v-model="todo.title" @blur="doneEdit(todo)" @keyup.enter="doneEdit(todo)" @keyup.esc="cancelEdit(todo)"  v-focus>
         </div>
         <div class="remove-item" @click="removeTodo(index)">
             &times;
@@ -36,11 +36,12 @@ export default {
     data() {
         return {
             newTodo: '',
-            idForTodo: 2,
+            idForTodo: 1,
             beforeEditCache: '',
             filter: 'all',
+            editing: false,
             todos: [
-                
+
             ]
 
         }
@@ -51,7 +52,7 @@ export default {
             return this.todos.filter((todo) => !todo.completed).length;
         },
         anyExisting() {
-            return this.existing !=0
+            return this.existing != 0
         },
         todosFiltered() {
             if (this.filter == 'all') {
@@ -164,7 +165,7 @@ h1 {
     height: 50px;
     outline: 0px;
     font-size: 24px;
-  color: gray;
+    color: gray;
     font-style: italic;
 }
 
@@ -203,7 +204,7 @@ h1 {
 
 .todo-item-label {
     padding: 10px;
-    
+
     margin-left: 12px;
 
 }
@@ -217,7 +218,6 @@ h1 {
     border: 1px solid #ccc;
     font-family: 'Avenir', Helvetica, Arial, sans-serif;
     outline: none;
-    
 
 }
 
